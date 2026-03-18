@@ -5,7 +5,7 @@ class LRUCache:
 
     def get(self, key: str) -> str:
         if key not in self.table:
-            return -1
+            return ''
         
         val = self.table.pop(key)
         self.table[key] = val
