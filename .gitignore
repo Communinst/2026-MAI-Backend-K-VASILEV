@@ -3,6 +3,8 @@ __pycache__/
 *.pyd
 *.so
 
+res.txt
+
 dist/
 build/
 develop-eggs/
