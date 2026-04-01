@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - Lab3</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/web/products" class="nav-link">Продукты</a>
+            <a href="/web/profile" class="nav-link">Профиль</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="category-container">
+            <h1>{{ .Title }}</h1>
+
+            <div class="category-header">
+                <h2>{{ .Category.Name }}</h2>
+                <p class="category-description">{{ .Category.Description }}</p>
+            </div>
+
+            <div class="products-grid">
+                {{ range .Products }}
+                <div class="product-card">
+                    <h3 class="product-name">{{ .Name }}</h3>
+                    <p class="product-price">${{ .Price }}</p>
+                    <button class="btn btn-primary" onclick="viewProduct({{ .ID }})">Подробнее</button>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Lab3. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function viewProduct(id) {
+            alert('Просмотр продукта ID: ' + id);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - Lab3</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/web/products" class="nav-link">Продукты</a>
+            <a href="/web/profile" class="nav-link">Профиль</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="product-detail-container">
+            <a href="/web/products" class="back-link">&larr; Назад к продуктам</a>
+            
+            <div class="product-detail-card">
+                <h1 class="product-name">{{ .Product.Name }}</h1>
+                <p class="product-category">Категория: {{ .Product.Category }}</p>
+                <p class="product-price">${{ .Product.Price }}</p>
+                <p class="product-description">{{ .Product.Description }}</p>
+                
+                <button class="btn btn-primary" onclick="addToCart()">В корзину</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Lab3. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function addToCart() {
+            alert('Товар добавлен в корзину (заглушка)');
+        }
+    </script>
+</body>
+</html>

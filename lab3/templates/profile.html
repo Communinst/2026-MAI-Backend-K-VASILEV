@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - Lab3</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="/web/products" class="nav-link">Продукты</a>
+            <a href="/web/profile" class="nav-link">Профиль</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="profile-container">
+            <h1>{{ .Title }}</h1>
+
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="avatar">
+                        <span>{{ .User.Nickname }}</span>
+                    </div>
+                    <h2>{{ .User.Nickname }}</h2>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-row">
+                        <label>ID:</label>
+                        <span>{{ .User.ID }}</span>
+                    </div>
+                    <div class="info-row">
+                        <label>Email:</label>
+                        <span>{{ .User.Email }}</span>
+                    </div>
+                    <div class="info-row">
+                        <label>Роль:</label>
+                        <span>{{ .User.Role }}</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="editProfile()">Редактировать профиль</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Lab3. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function editProfile() {
+            alert('Функционал редактирования будет добавлен позже');
+        }
+    </script>
+</body>
+</html>

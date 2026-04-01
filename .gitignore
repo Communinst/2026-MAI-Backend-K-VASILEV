@@ -19,3 +19,8 @@ venv/
 .vscode/
 .DS_Store
 *.tmp
+
+*.env
+*.exe
+go.mod
+go.sum
