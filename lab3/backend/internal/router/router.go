@@ -3,8 +3,8 @@ package router
 import (
 	"os"
 
-	"github.com/Communinst/2026-MAI-Backend-K-VASILEV/lab3/internal/handler"
-	"github.com/Communinst/2026-MAI-Backend-K-VASILEV/lab3/internal/middleware"
+	"github.com/Communinst/2026-MAI-Backend-K-VASILEV/lab3/backend/internal/handler"
+	"github.com/Communinst/2026-MAI-Backend-K-VASILEV/lab3/backend/internal/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -41,13 +41,16 @@ func (r *Router) Init(trustedProxies []string) *gin.Engine {
 		api.POST("/auth/signin", r.handler.Auth.SignIn)
 
 		// Profile — только GET/POST
-		api.	GET("/profile", middleware.RequireMethods("GET"), r.handler.Profile.GetProfile)
+		api.GET("/profile", middleware.RequireMethods("GET"), r.handler.Profile.GetProfile)
 		api.POST("/profile", middleware.RequireMethods("POST"), r.handler.Profile.UpdateProfile)
 
 		// Products
 		api.GET("/products", middleware.RequireMethods("GET"), r.handler.Product.GetProducts)
-		api.POST("/products", middleware.RequireMethods("POST"), r.handler.Product.CreateProduct)
+		api.POST("/products/create", middleware.RequireMethods("POST"), r.handler.Product.CreateProduct)
 		api.GET("/products/:id", middleware.RequireMethods("GET"), r.handler.Product.GetProductByID)
+
+		// Search
+		api.GET("/search", middleware.RequireMethods("GET"), r.handler.Product.SearchProducts)
 
 		// Categories
 		api.GET("/category/:id", middleware.RequireMethods("GET"), r.handler.Category.GetCategory)

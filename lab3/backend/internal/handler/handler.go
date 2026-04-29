@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/Communinst/2026-MAI-Backend-K-VASILEV/lab3/backend/internal/service"
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +23,7 @@ type ProductHandlerInterface interface {
 	GetProducts(c *gin.Context)     // JSON API
 	CreateProduct(c *gin.Context)   // JSON API
 	GetProductByID(c *gin.Context)  // JSON API
+	SearchProducts(c *gin.Context)  // JSON API
 }
 
 type CategoryHandlerInterface interface {
@@ -36,12 +38,11 @@ type Handler struct {
 	Category CategoryHandlerInterface
 }
 
-// Сейчас используются заглушки
-func NewHandler() *Handler {
+func NewHandler(services *service.Service) *Handler {
 	return &Handler{
 		Auth:     NewAuthHandler(),
 		Profile:  NewProfileHandler(),
-		Product:  NewProductHandler(),
+		Product:  NewProductHandler(services.Product),
 		Category: NewCategoryHandler(),
 	}
 }
