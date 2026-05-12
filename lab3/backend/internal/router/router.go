@@ -48,6 +48,8 @@ func (r *Router) Init(trustedProxies []string) *gin.Engine {
 		api.GET("/products", middleware.RequireMethods("GET"), r.handler.Product.GetProducts)
 		api.POST("/products/create", middleware.RequireMethods("POST"), r.handler.Product.CreateProduct)
 		api.GET("/products/:id", middleware.RequireMethods("GET"), r.handler.Product.GetProductByID)
+		api.PUT("/products/:id", r.handler.Product.UpdateProduct)
+		api.DELETE("/products/:id", r.handler.Product.DeleteProduct)
 
 		// Search
 		api.GET("/search", middleware.RequireMethods("GET"), r.handler.Product.SearchProducts)

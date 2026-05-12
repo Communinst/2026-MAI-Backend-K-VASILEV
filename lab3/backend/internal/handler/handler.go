@@ -24,6 +24,8 @@ type ProductHandlerInterface interface {
 	CreateProduct(c *gin.Context)   // JSON API
 	GetProductByID(c *gin.Context)  // JSON API
 	SearchProducts(c *gin.Context)  // JSON API
+	UpdateProduct(c *gin.Context)
+	DeleteProduct(c *gin.Context)
 }
 
 type CategoryHandlerInterface interface {

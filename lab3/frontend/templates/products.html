@@ -35,7 +35,38 @@
         <p>&copy; 2026 Lab3. All rights reserved.</p>
     </footer>
 
+    <!-- Centrifugo library -->
+    <script src="https://unpkg.com/centrifuge@5.0.1/dist/centrifuge.js"></script>
     <script>
+        const centrifuge = new Centrifuge("ws://localhost:8001/connection/websocket");
+        
+        centrifuge.on('connected', function (ctx) {
+            console.log("Connected to Centrifugo!");
+        });
+
+        const sub = centrifuge.newSubscription("products");
+        sub.on('publication', function (ctx) {
+            console.log("New product event:", ctx.data);
+            if (ctx.data.action === "create" && ctx.data.product) {
+                const product = ctx.data.product;
+                const grid = document.querySelector('.products-grid');
+                if (grid) {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-category">Категория: ${product.category_id}</p>
+                        <p class="product-price">$${product.price}</p>
+                        <a href="/web/products/${product.id}" class="btn btn-primary">Подробнее</a>
+                    `;
+                    grid.insertBefore(card, grid.firstChild);
+                }
+            }
+        });
+
+        sub.subscribe();
+        centrifuge.connect();
+
         function viewProduct(id) {
             alert('Просмотр продукта ID: ' + id);
         }

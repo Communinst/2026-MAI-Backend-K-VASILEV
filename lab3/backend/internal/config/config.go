@@ -6,6 +6,11 @@ import (
 	"github.com/ilyakaznacheev/cleanenv"
 )
 
+type CentrifugConfig struct {
+	CentrifugoURL string `env:"CENTRIFUGO_URL" env-default:"http://centrifugo:8000/api"`
+	CentrifugoKey string `env:"CENTRIFUGO_API_KEY" env-default:"my_api_key"`
+}
+
 type BootConfig struct {
 	ServerPort     string   `env:"SERVER_PORT" env-default:"8000"`
 	ServerHost     string   `env:"SERVER_HOST" env-default:"localhost"`
@@ -19,6 +24,7 @@ type BootConfig struct {
 	TrustedProxies []string `env:"TRUSTED_PROXIES" env-default:"127.0.0.1,::1" env-separator:","`
 	TemplatesPath  string   `env:"TEMPLATES_PATH" env-default:"./templates"`
 	StaticPath     string   `env:"STATIC_PATH" env-default:"./static"`
+	CentriConf     CentrifugConfig
 }
 
 func LoadNewBootCfg() (*BootConfig, error) {

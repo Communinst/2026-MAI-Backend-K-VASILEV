@@ -1,19 +1,3 @@
-func (r *ProductPostgresRepository) Update(ctx context.Context, id uint64, product *models.Product) error {
-	var existing models.Product
-	if err := r.db.WithContext(ctx).First(&existing, id).Error; err != nil {
-		return err
-	}
-	// Обновляем только изменяемые поля
-	existing.Name = product.Name
-	existing.Description = product.Description
-	existing.Price = product.Price
-	existing.CategoryID = product.CategoryID
-	return r.db.WithContext(ctx).Save(&existing).Error
-}
-
-func (r *ProductPostgresRepository) Delete(ctx context.Context, id uint64) error {
-	return r.db.WithContext(ctx).Delete(&models.Product{}, id).Error
-}
 package postgres
 
 import (
@@ -59,4 +43,21 @@ func (r *ProductPostgresRepository) Search(ctx context.Context, query string) ([
 		Where("name ILIKE ? OR description ILIKE ?", searchQuery, searchQuery).
 		Find(&products).Error
 	return products, err
+}
+
+func (r *ProductPostgresRepository) Update(ctx context.Context, id uint64, product *models.Product) error {
+	var existing models.Product
+	if err := r.db.WithContext(ctx).First(&existing, id).Error; err != nil {
+		return err
+	}
+	// Обновляем только изменяемые поля
+	existing.Name = product.Name
+	existing.Description = product.Description
+	existing.Price = product.Price
+	existing.CategoryID = product.CategoryID
+	return r.db.WithContext(ctx).Save(&existing).Error
+}
+
+func (r *ProductPostgresRepository) Delete(ctx context.Context, id uint64) error {
+	return r.db.WithContext(ctx).Delete(&models.Product{}, id).Error
 }

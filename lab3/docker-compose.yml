@@ -68,5 +68,19 @@ services:
       postgres:
         condition: service_healthy
 
+  centrifugo:
+    image: centrifugo/centrifugo:v5
+    container_name: lab3_centrifugo
+    ports:
+      - "8001:8000"
+    command: centrifugo --config /etc/centrifugo/config.json
+    volumes:
+      - ./centrifugo_config.json:/etc/centrifugo/config.json
+    environment:
+      - CENTRIFUGO_TOKEN_HMAC_SECRET_KEY=my_secret_key
+      - CENTRIFUGO_ADMIN_PASSWORD=admin
+      - CENTRIFUGO_ADMIN_SECRET=admin
+      - CENTRIFUGO_API_KEY=my_api_key
+
 volumes:
   postgres_data:

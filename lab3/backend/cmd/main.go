@@ -29,7 +29,7 @@ func main() {
 	repos := &repository.Repository{
 		Product: postgres.NewProductPostgresRepository(db),
 	}
-	services := service.NewService(repos)
+	services := service.NewService(repos, &cfg.CentriConf)
 	h := handler.NewHandler(services)
 	r := router.NewRouter(h)
 

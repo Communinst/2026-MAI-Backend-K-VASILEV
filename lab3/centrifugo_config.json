@@ -1,0 +1,14 @@
+{
+  "api_key": "my_api_key",
+  "client_insecure": true,
+  "allowed_origins": ["*"],
+  "namespaces": [
+    {
+      "name": "public",
+      "allow_subscribe_for_client": true,
+      "allow_subscribe_for_anonymous": true
+    }
+  ],
+  "allow_subscribe_for_client": true,
+  "allow_subscribe_for_anonymous": true
+}

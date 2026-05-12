@@ -66,6 +66,7 @@ func (h *ProductHandler) CreateProduct(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
 		return
 	}
+	productData.ID = 0
 
 	id, err := h.product.CreateProduct(c.Request.Context(), &productData)
 	if err != nil {
@@ -150,4 +151,50 @@ func (h *ProductHandler) GetProductPage(c *gin.Context) {
 		"Title":   product.Name,
 		"Product": product,
 	})
+}
+
+// PUT /api/products/:id
+func (h *ProductHandler) UpdateProduct(c *gin.Context) {
+	slog.Info("product handler: update product: initiated")
+
+	idStr := c.Param("id")
+	id, err := strconv.ParseUint(idStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product id"})
+		return
+	}
+
+	var productData models.Product
+	if err := c.ShouldBindJSON(&productData); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request"})
+		return
+	}
+
+	if err := h.product.UpdateProduct(c.Request.Context(), id, &productData); err != nil {
+		slog.Error("product handler: failed to update", "error", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update product"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Product updated"})
+}
+
+// DELETE /api/products/:id
+func (h *ProductHandler) DeleteProduct(c *gin.Context) {
+	slog.Info("product handler: delete product: initiated")
+
+	idStr := c.Param("id")
+	id, err := strconv.ParseUint(idStr, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid product id"})
+		return
+	}
+
+	if err := h.product.DeleteProduct(c.Request.Context(), id); err != nil {
+		slog.Error("product handler: failed to delete", "error", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete product"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "Product deleted"})
 }
